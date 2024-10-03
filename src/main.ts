@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { setupSwagger } from './common/swagger';
 import { ConfigService } from '@nestjs/config';
+import { ValidationExceptionFilter } from './common/validation/exception.filter';
+import { ValidationException } from './common/validation/validation-exception.factory';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,6 +24,14 @@ async function bootstrap() {
 
   // Setup Swagger for documentation.
   setupSwagger(app);
+
+  // Exception filter
+  app.useGlobalFilters(new ValidationExceptionFilter());
+  app.useGlobalPipes(new ValidationPipe({
+    exceptionFactory: (errors) => {
+      return new ValidationException(errors);
+    }
+  }));
 
   const port = configService.get('PORT');
 
