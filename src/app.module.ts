@@ -7,6 +7,7 @@ import { validate } from './common/validation/env.validation';
 import databaseConfig from './common/config/database.config';
 import swaggerConfig from './common/config/swagger.config';
 import { DatabaseModule } from './common/modules/database.module';
+import { BlogsModule } from './modules/blogs/blogs.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { DatabaseModule } from './common/modules/database.module';
       envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
       validate,
     }),
-    DatabaseModule
+    DatabaseModule,
+    BlogsModule
   ],
   controllers: [AppController],
   providers: [AppService],
