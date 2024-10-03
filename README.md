@@ -41,6 +41,9 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
+# Staging
+$ npm run start:staging
+
 # production mode
 $ npm run start:prod
 ```
