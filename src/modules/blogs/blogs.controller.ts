@@ -9,7 +9,7 @@ import { createBlogResponse, getBlogListResponse } from './interfaces/blog-respo
 export class BlogsController {
     constructor(private readonly blogService: BlogsService) { }
 
-    @Post()
+    @Post('create')
     async create(@Body() data: createBlogDto): Promise<createBlogResponse> {
         const blogId = await this.blogService.create(data);
         return {
